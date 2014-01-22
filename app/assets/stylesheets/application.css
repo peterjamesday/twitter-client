@@ -75,3 +75,15 @@ html, body{
 .scoreboard{
 	height: 40px;
 }
+
+#hacker-list{
+	height: 40px;
+	width: 100%;
+}
+
+.list{
+	height: 40px;
+	width: 500px;
+}
+
+
