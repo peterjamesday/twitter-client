@@ -15,14 +15,22 @@ html, body{
 	
 	margin: 0;
 	padding: 0;
-	background-color: #D1E0FF;
+	
+
+	font-family: proxima-nova, "Helvetica Neue", Arial, sans-serif;
 }
 
-
+.backImage{
+	position: fixed;
+	width:100%;
+	height:100%;
+	z-index: -30;
+	background-image: url('http://static1.wikia.nocookie.net/__cb20130119100035/creepypasta/images/2/2a/Field-of-love-nature-31000_(1).jpg');
+}
 
 .container{
 	text-align: center;
-	margin-top: 35px;
+	margin-top: 18px;
 	
 }
 
@@ -30,60 +38,102 @@ html, body{
 	position: fixed;
 	top: 0;
 	width: 100%;
-	background-color: #990000;
-	text-align: center;
-	color: #f5f8fa;
+	background-color: #e1e4e7;
+	text-align: left;
+	color: #1f2f3a;
 	z-index: 1;
+	padding-left: 10px;
+	padding-bottom: 0px;
+	border-bottom: 4px solid black;
+
 	
 }
 
 .banner h1{
 	margin: 0;
+	margin-bottom: -7.5px;
 }
 
+.sideBar {
+	position: fixed;
+	width: 220px;
+	margin-left: .5px;
+	
+	
+}
+
+.list{
+	float:left;
+
+}
 
 .bubble{
 	text-align: left;
 	position: relative;
-	width: 75%;
-	margin: 10px;
+	width: 500px;
+	margin: 0.5px;
+	left: 225px;
 	padding: 20px;
-	display: inline-block;
-	background-color: #55ACEE;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
+	/*display: inline-block;*/
+	background-color: white;
+	
+	
 	vertical-align: top;
 	color: #292f33;
-	border: 2px solid #55ACEE;
+	border: 2px solid gray;
+	border-radius: 9px;
 }
 
 .bubble:hover{
 	border: 2px solid #FFFF00;
-	-moz-box-shadow:    inset 0 5px 20px 10px #3a85d6;
-   -webkit-box-shadow: inset 0 5px 20px 10px #3a85d6;
-   box-shadow:         inset 0 5px 20px 10px #3a85d6;
+	
    
 }
 
 .bubble:active{
-	background-color: #3a85d6;
-	-moz-box-shadow:    inset 0 5px 20px 10px #3a85d6;
-   -webkit-box-shadow: inset 0 5px 20px 10px #3a85d6;
-   box-shadow:         inset 0 5px 20px 10px #3a85d6;
+
 }
 
-.scoreboard{
-	height: 40px;
+
+.popUp{
+	position: fixed;
+	margin-top:40px;
+	width:500px;
+	height: 400px;
+	right: 40px;
+	margin-right: 50px;
+	background-color: white;
 }
 
-#hacker-list{
-	height: 40px;
-	width: 100%;
+.additionalInfo{
+
 }
 
-.list{
-	height: 40px;
-	width: 500px;
+input {
+	height: 55px;
+	width: 262px;
+	font-size: 20px;
+	border-radius: 3px;
+	border: none;
+	margin-top: 17px;
 }
+
+button {
+	height: 60px;
+	width: 264px;
+	color: white;
+	background-color: #f15a5f;
+	border: none;
+	font-size: 20px;
+	
+	
+}
+button:hover{
+	border-bottom: 4px solid black;
+	border-top: 1px solid black;
+	border-right: 4px solid black;
+
+}
+
 
 

@@ -8,14 +8,25 @@
   
 </head>
 <body>
+<div class='backImage'></div>
+<div id="tweet-list">
 	<div class="banner">
 		<h1>
 			#Stanford Twitter Feed
+			
 		</h1>
 	</div>
 	
 	<div class="container">
+	<div class="sideBar">
+		<input class="search" placeholder="Search" />
+		<button class="sort" data-sort="retweet">Sort by Retweet</button>
+		<button class="sort" data-sort="retweet">Sort by Retweet</button>
+
+
+	</div>
 		<%= yield %>
 	</div>
+</div>	
 </body>
 </html>

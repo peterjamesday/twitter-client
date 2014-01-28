@@ -1,6 +1,6 @@
 <% for(i = 0; i < statuses.length; i++){ %>
     	
-    	<div class='bubble'><h3> <%= statuses[i].retweet_count%> retweets!</h3><h2> <%= statuses[i].user.screen_name %>
+    	<div class='bubble'><h3 class="retweet"> <%= statuses[i].retweet_count%> retweets!</h3><h2 class='name'> <%= statuses[i].user.screen_name %>
     		(<%= statuses[i].user.followers_count %> followers) said:</h2>
-    		<%= statuses[i].text %></div>   
+    		<span class="text"><%= statuses[i].text %></span></div>   
 <%  } %>

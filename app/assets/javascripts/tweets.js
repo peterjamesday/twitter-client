@@ -1,33 +1,76 @@
+function loadPosts(){
+    
+    $.ajax({
+      url: "/api/retrieveTweets/abcd",
+      type: "GET",
+      data: {
+        page: 1
+      }, 
+        success: function(response) {
+        
+        var template = window.JST["test"];
+        
+        $(".list").append(template(response));
+            listHover(response);
+        }
+       
+    });
+}
 
-$.ajax({
-  url: "/api/retrieveTweets/abcd",
-  type: "GET",
-  success: function(response) {
- 
-    var template = window.JST["test"];
-    $(".text").append(template(response));
 
-    }
-  
+loadPosts();
+
+
+
+
+
+function listHover (el){
+    var template = window.JST["tweetCount"];
+    $(".bubble").hover(function(){
+                $('.popUp').show();
+                $('.popUp').append(template(el));
+               
+            
+        }, function(){
+            $('.additionalInfo').find(".additionalInfo:last").remove();
+            $('.popUp').hide();
+            
+        }
+    );
+}
+
+$(document).ajaxComplete(function(){
+    
+    createList();
 });
 
+// $(document).on("click", ".bubble", function(){
+// 	$(this).hide();
+// })
 
-$(document).on("click", ".bubble", function(){
-	$(this).hide();
+function checkScroll(){
+    var docPosition = $(document).scrollTop();
+    if(docPosition + 1000 > $(document).height()){
+        
+        loadPosts();
+    }
+
+}
+
+$(document).scroll(function(){
+    checkScroll();
 })
 
 
 
-
+//top 3 tweeters, locations, more analysis
 
 var options = {
-    item: '<li><h3 class="name"></h3><p class="city"></p></li>'
+    valueNames: ['retweet', 'name', 'text', 'tweetCount']
 };
 
-var values = [
-    { name: 'Jonny', city:'Stockholm' }
-    , { name: 'Jonas', city:'Berlin' }
-];
 
-var hackerList = new List('hacker-list', options, values);
+function createList () {
+    var tweetList = new List('tweet-list', options);
 
+}
