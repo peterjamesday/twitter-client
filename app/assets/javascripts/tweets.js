@@ -1,3 +1,4 @@
+
 function loadPosts(){
     
     $.ajax({
@@ -106,5 +107,19 @@ var options = {
 
 function createList () {
     var tweetList = new List('tweet-list', options);
+}
+
+function postTweet() {
+  $.ajax({
+    type: "post",
+    url:"/api/posttweet",
+    data: {
+      username: "first last",
+      message: "hello"
+    },
+    success: function(){
+      debugger;
+    }
+  })
 
 }
