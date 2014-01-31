@@ -15,9 +15,19 @@ html, body{
 	
 	margin: 0;
 	padding: 0;
-	
-
 	font-family: proxima-nova, "Helvetica Neue", Arial, sans-serif;
+
+}
+
+h1{
+	font-size: 30px;
+	font-weight: 300;
+	
+}
+h2{
+	font-size: 20px;
+	font-weight: 300;
+	
 }
 
 .backImage{
@@ -85,7 +95,8 @@ html, body{
 }
 
 .bubble:hover{
-	border: 2px solid #FFFF00;
+	border: 2px solid #111111;
+	background-color: #e5f1ff;
 	
    
 }
@@ -96,22 +107,33 @@ html, body{
 
 
 .popUp{
-	position: fixed;
-	margin-top:40px;
-	width:500px;
-	height: 400px;
-	right: 40px;
-	margin-right: 50px;
-	background-color: white;
+	position: absolute;
+	width:175px;
+	height: 100px;
+	left: 810px;
+	background-color: #e5f1ff;
+	z-index: 2;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
 }
 
 .additionalInfo{
 
 }
 
+.leftPanel{
+	height: 220px;
+	width: 275px;
+	background-color: #5a5ff1;
+	position:fixed;
+	z-index: -1;
+	color: white;
+
+}
+
 input {
 	height: 55px;
-	width: 262px;
+	width: 275px;
 	font-size: 20px;
 	border-radius: 3px;
 	border: none;
@@ -120,7 +142,7 @@ input {
 
 button {
 	height: 60px;
-	width: 264px;
+	width: 275px;
 	color: white;
 	background-color: #f15a5f;
 	border: none;
@@ -130,7 +152,7 @@ button {
 }
 button:hover{
 	border-bottom: 4px solid black;
-	border-top: 1px solid black;
+	border-top: 2px solid black;
 	border-right: 4px solid black;
 
 }
