@@ -10,24 +10,33 @@
 <body>
 <div class='backImage'></div>
 <div id="tweet-list">
-	<div class="banner">
-		<h1>
-			#Stanford Twitter Feed
-			
-		</h1>
-	</div>
-	
-	<div class="container">
-	<div class="sideBar">
-		<input class="search" placeholder="Search" />
-		<button class="sort" data-sort="retweet">Sort by Retweet</button>
-		<button class="sort" data-sort="followers">Sort by Followers</button>
-		<div class='leftPanel'><h1>Top 3 Tweeters</h1></div>
+	<div class="lightBox">
+		<div class="banner">
+			<h1>
+				#Stanford Twitter Feed
+				
+			</h1>
+		</div>
+
+		<div class="errorMessage">
+		</div>
+		<div class="successMessage">
+			<h1>Success</h1>
+		</div>
+		
+		<div class="container">
+		<div class="sideBar">
+			<input class="search" placeholder="Search" />
+			<button class="sort" data-sort="retweet">Sort by Retweet</button>
+			<button class="sort" data-sort="followers">Sort by Followers</button>
+			<div class='leftPanel'>	
+			</div>
 
 
-	</div>
-		<%= yield %>
-	</div>
+		</div>
+			<%= yield %>
+		</div>
+	</div>	
 </div>	
 </body>
 </html>

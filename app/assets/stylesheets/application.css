@@ -11,6 +11,9 @@
  *= require_self
  *= require_tree .
  */
+
+/* elements */
+
 html, body{
 	
 	margin: 0;
@@ -29,6 +32,8 @@ h2{
 	font-weight: 300;
 	
 }
+
+/* layout structure */
 
 .backImage{
 	position: fixed;
@@ -64,6 +69,15 @@ h2{
 	margin-bottom: -7.5px;
 }
 
+.lightBox{
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	z-index: 6;
+}
+
+/* Left Column */
+
 .sideBar {
 	position: fixed;
 	width: 220px;
@@ -71,6 +85,18 @@ h2{
 	
 	
 }
+
+.leftPanel{
+	height: 220px;
+	width: 275px;
+	background-color: #5a5ff1;
+	position:fixed;
+	z-index: -1;
+	color: white;
+
+}
+
+/* Center Column */
 
 .list{
 	float:left;
@@ -84,10 +110,7 @@ h2{
 	margin: 0.5px;
 	left: 225px;
 	padding: 20px;
-	/*display: inline-block;*/
 	background-color: white;
-	
-	
 	vertical-align: top;
 	color: #292f33;
 	border: 2px solid gray;
@@ -105,6 +128,7 @@ h2{
 
 }
 
+/* Right Column */
 
 .popUp{
 	position: absolute;
@@ -121,17 +145,11 @@ h2{
 
 }
 
-.leftPanel{
-	height: 220px;
-	width: 275px;
-	background-color: #5a5ff1;
-	position:fixed;
-	z-index: -1;
-	color: white;
 
-}
+/* Buttons, Forms, Input */
 
-input {
+
+.search {
 	height: 55px;
 	width: 275px;
 	font-size: 20px;
@@ -140,7 +158,7 @@ input {
 	margin-top: 17px;
 }
 
-button {
+.sort {
 	height: 60px;
 	width: 275px;
 	color: white;
@@ -150,12 +168,89 @@ button {
 	
 	
 }
-button:hover{
+.sort:hover{
 	border-bottom: 4px solid black;
 	border-top: 2px solid black;
 	border-right: 4px solid black;
 
 }
 
+.post-form{
+	position:fixed;
+	z-index: 1;
+	left: 810px;
+	top: 40px;
 
+}
+
+.form-input{
+	height: 100px;
+	width: 375px;
+	font-size: 20px;
+	border-radius: 3px;
+	border: none;
+	margin-top: 0;
+	vertical-align: middle;
+	margin-bottom: 10px;
+}
+
+.form-username{
+	height: 50px;
+	width: 375px;
+	font-size: 20px;
+	border-radius: 3px;
+	border: none;
+	margin-top: 0;
+	margin-bottom: 10px;
+	vertical-align: middle;
+}
+
+.form-button{
+    height: 55px;
+	width: 275px;
+	font-size: 20px;
+	border-radius: 3px;
+	border: none;
+	margin-top: 0;
+	vertical-align: middle;
+	background-color: #f15a5f;
+	color: white;
+}
+
+
+
+
+/* Error Messages, Lightboxes */
+
+
+
+.errorMessage{
+	position: fixed;
+	top: 200px;
+	left: 35%;
+	width: 30%;
+	background-color: rgba(255,0,0,0.5);
+	text-align: center;
+	color: white;
+	z-index: 60;
+	padding-left: 10px;
+	padding-bottom: 0px;
+	border: 4px solid red;
+	display: none;
+}
+
+.successMessage{
+	position: fixed;
+	top: 200px;
+	left: 35%;
+	width: 30%;
+	background-color: rgba(0,255,0,0.5);
+	text-align: center;
+	color: white;
+	z-index: 60;
+	padding-left: 10px;
+	padding-bottom: 0px;
+	border: 4px solid green;
+	display: none;
+}
 

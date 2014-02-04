@@ -1,39 +1,54 @@
 
-function loadPosts(){
+function loadPosts(currentPage){ //pass in page to loadPosts arg- currentPage
     
     $.ajax({
       url: "/api/retrieveTweets/abcd",
       type: "GET",
       data: {
-        page: 1
+        page: currentPage
       }, 
         success: function(response) {
         
             var template = window.JST["test"];
-            
+
             $(".list").append(template(response));
             listHover(response);
-            findLocation(response);
+            // findLocation(response);
             sortTweetCount(response);
+            lightBox();
         }
        
     });
 }
 
+//global object for global variables
+var twitterClient = {
+    currentPage: 1,
 
-loadPosts();
+}
 
 
 
+function paginate(){
 
+    loadPosts(twitterClient.currentPage);
+    twitterClient.currentPage += 1;
+   
+}
+
+paginate();
 
 function listHover (el){
-    var template = window.JST["tweetCount"];
+    var template = window.JST["tweetCount"],
+        bubbleTop,
+        bubbleIndex;
+
     $('.popUp').hide();
-    $(".bubble").hover(function(){
+    $('.bubble').hover(function(){
         
-        var bubbleTop = $(this).offset().top + 50;
-        var bubbleIndex = $(this).index();
+        bubbleTop = $(this).offset().top + 50;
+        bubbleIndex = $(this).index();
+
                 $('.popUp').show();
                 $('.popUp').append(template({status: el.statuses[bubbleIndex]}));
                 $('.popUp').css("top",bubbleTop);
@@ -47,11 +62,14 @@ function listHover (el){
 }
 
 
+// generates an object with location and number of times it has existed
+
 function findLocation(allTweets){
-    var locationCount = {};
+    var locationCount = {},
+        location;
     
     for(var i = 0; i < allTweets.statuses.length; i++ ){
-        var location = allTweets.statuses[i].user.location;
+        location = allTweets.statuses[i].user.location;
         if(locationCount.hasOwnProperty(location)){
             locationCount[location] += 1;
         } else{
@@ -62,20 +80,15 @@ function findLocation(allTweets){
 }
 
 
-$(document).ajaxComplete(function(){
-    
-    createList();
-});
 
-// $(document).on("click", ".bubble", function(){
-// 	$(this).hide();
-// })
+
+
 
 function checkScroll(){
     var docPosition = $(document).scrollTop();
     if(docPosition + 1000 > $(document).height()){
-        
-        loadPosts();
+        //this is too fast...
+        paginate();
     }
 
 }
@@ -86,12 +99,17 @@ $(document).scroll(function(){
 
 //need to make this not affect order of other status_count
 function sortTweetCount(response){
+    var sortedTweets,
+        topThree;
 
-var sortedTweets = response.statuses.sort(function(a, b){
+    $('.leftPanel').empty();
+
+    sortedTweets = response.statuses.sort(function(a, b){
     return b.user.statuses_count - a.user.statuses_count;
     });
-    var topThree = sortedTweets.slice(0, 3);
-    
+
+    topThree = sortedTweets.slice(0, 3);
+    $('.leftPanel').append("<h1>Top 3 Tweeters</h1>")
     for(var i = 0; i < 3; i++){
         $('.leftPanel').append("<h2>" + topThree[i].user.screen_name + ": " + topThree[i].user.statuses_count + "</h2>");
     }
@@ -99,6 +117,7 @@ var sortedTweets = response.statuses.sort(function(a, b){
 
 
 
+// Begin list.js integration
 
 var options = {
     valueNames: ['retweet', 'name', 'text', 'tweetCount', 'followers']
@@ -107,19 +126,69 @@ var options = {
 
 function createList () {
     var tweetList = new List('tweet-list', options);
+    debugger
+    //tweetList.items[i]
 }
 
-function postTweet() {
+$(document).ajaxComplete(function(){
+    
+    createList();
+    
+});
+
+// End list.js integration
+
+
+
+
+$(document).on("click", ".form-button", function(){
+    
+    var tweetMessage,
+        twitterUserName;
+
+    tweetMessage = $('.form-input').val(); 
+    twitterUserName = $('.form-username').val();
+    
+    postTweet(twitterUserName, tweetMessage);
+});
+
+
+function postTweet(twitterUserName, tweetMessage) {
   $.ajax({
     type: "post",
     url:"/api/posttweet",
     data: {
-      username: "first last",
-      message: "hello"
+      username: twitterUserName,
+      message: tweetMessage 
     },
-    success: function(){
-      debugger;
+    success: function(response){
+      debugger
+      $('.successMessage').show();
+    }, 
+    error: function(xhr, status, error){
+        debugger
+       var errorObject = JSON.parse(xhr.responseText);
+       $('.errorMessage').show();
+       $('.errorMessage').append("<h1>" + errorObject.error + "</h1>");
     }
   })
 
 }
+
+//handle error and success message view
+$(document).on("click", function(){
+    $('.errorMessage').hide();
+    $('.errorMessage').empty();
+    $('.successMessage').hide();
+});
+
+function lightBox(){
+    $(".lightBox").show();
+}
+
+
+//get pages working, button form working, username needs another input,
+// fix css
+// david will figure out sort issue
+
+
