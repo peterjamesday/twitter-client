@@ -210,7 +210,7 @@ var twitterClient = {
 
 
 
-var TweetView = Backbone.View.extend({
+var TweetsView = Backbone.View.extend({
 
     el: ".list", 
 
@@ -227,31 +227,51 @@ var TweetView = Backbone.View.extend({
 
     render: function(){
        
-        // probably a cleaner way to do this, returning response.statuses
-        var data = this.collection.toJSON();     
-         debugger  
-        $('.list').append(this.template(data[0]));
-        
-        
+        for(var i = 0; i < this.collection.length; i++){
+            var tweetView = new TweetView({
+                 model: this.collection.at(i)
+            });
+
+            $('.list').append(tweetView.render().el); 
+        }  
     },
 
     events: {
         "click h3": "turnRed",
-        "hover .bubble": "hoverPopUp"
+        "mouseover .bubble": "hoverSidebar"
     },
 
     turnRed: function(event){
         $(event.currentTarget).css("color", "red");
     },
 
-    hoverPopUp: function(event){
+    hoverSidebar: function(event){
 
     }
 
 });
 
 
+var TweetView = Backbone.View.extend({
+    className: "bubble",
 
+    template: window.JST["tweet"],
+
+    render: function(){
+      this.$el.html(this.template(this.model.toJSON()));
+      return this;
+    },
+
+    events: {
+        "click": "bogusEvent"
+    },
+
+    bogusEvent: function(){
+        debugger
+    }
+
+
+});
 
 
 
@@ -274,9 +294,27 @@ var Tweets = Backbone.Collection.extend({
 
     parse: function(response){
        
-        return response;
+        return response.statuses;
+    }
+});
+
+
+var TweetPostView = Backbone.View.extend({
+    tagName: "form",
+
+    events:{
+        "click button": "stopReload"
+    },
+
+    stopReload: function(event){
+        
+        event.preventDefault();
     }
 
+});
+
+
+var TweetPost = Backbone.Model.extend({
 
 });
 
@@ -285,6 +323,11 @@ $(document).ready(function(){
     
     var tweets = new Tweets();
     window.tweet = new Tweet();
-    var tweetView = new TweetView({collection: tweets});
+    var tweetsView = new TweetsView({collection: tweets});
+    var tweetPostView = new TweetPostView({tagName: 'form'});
+
+    // $('form').submit(function(event){
+    // event.preventDefault();
+// });
     
 });
