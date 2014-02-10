@@ -29,6 +29,8 @@ gem 'jquery-rails'
 
 gem "twitter", "~> 5.5.1"
 gem 'ejs'
+
+gem "rails-backbone"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

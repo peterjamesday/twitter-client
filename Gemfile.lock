@@ -97,6 +97,10 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails-backbone (0.7.2)
+      coffee-script (~> 2.2.0)
+      ejs (~> 1.0.0)
+      railties (>= 3.1.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -153,6 +157,7 @@ DEPENDENCIES
   pry
   pry-debugger
   rails (= 3.2.13)
+  rails-backbone
   sass-rails (~> 3.2.3)
   sqlite3
   twitter (~> 5.5.1)

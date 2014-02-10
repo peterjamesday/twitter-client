@@ -1,4 +1,4 @@
-
+/*
 function loadPosts(currentPage){ //pass in page to loadPosts arg- currentPage
     
     $.ajax({
@@ -14,7 +14,7 @@ function loadPosts(currentPage){ //pass in page to loadPosts arg- currentPage
             $(".list").append(template(response));
             listHover(response);
             // findLocation(response);
-            sortTweetCount(response);
+            // sortTweetCount(response);
             lightBox();
         }
        
@@ -126,7 +126,7 @@ var options = {
 
 function createList () {
     var tweetList = new List('tweet-list', options);
-    debugger
+    
     //tweetList.items[i]
 }
 
@@ -186,9 +186,105 @@ function lightBox(){
     $(".lightBox").show();
 }
 
+*/
 
-//get pages working, button form working, username needs another input,
-// fix css
-// david will figure out sort issue
+//global object for global variables
+var twitterClient = {
+    currentPage: 1,
+
+}
+// var TweetsView = Backbone.View.extend({
+//     render: function(){
+//         debugger
+//         this.collection.forEach(this.addOne, this);
+//     },
+
+//     addOne: function(tweetView){
+
+//         var tweetView = new TweetView({model: tweet});
+//         this.$el.append(tweetView.render().el);
+//     }
+
+// });
 
 
+
+
+var TweetView = Backbone.View.extend({
+
+    el: ".list", 
+
+    initialize: function(){
+        // this.render();
+         this.collection.on("reset", this.render, this);
+        // this.collection.on('all', function(event){
+        //     console.log(event);
+            
+        // });
+    },
+
+    template: window.JST["test"],
+
+    render: function(){
+       
+        // probably a cleaner way to do this, returning response.statuses
+        var data = this.collection.toJSON();     
+         debugger  
+        $('.list').append(this.template(data[0]));
+        
+        
+    },
+
+    events: {
+        "click h3": "turnRed",
+        "hover .bubble": "hoverPopUp"
+    },
+
+    turnRed: function(event){
+        $(event.currentTarget).css("color", "red");
+    },
+
+    hoverPopUp: function(event){
+
+    }
+
+});
+
+
+
+
+
+
+
+
+var Tweet = Backbone.Model.extend({
+
+});
+
+
+
+var Tweets = Backbone.Collection.extend({
+    model: Tweet,
+
+    url: "/api/retrieveTweets/abcd",
+
+    initialize: function(){
+        this.fetch({data: {page: 1 }});
+    },
+
+    parse: function(response){
+       
+        return response;
+    }
+
+
+});
+
+
+$(document).ready(function(){
+    
+    var tweets = new Tweets();
+    window.tweet = new Tweet();
+    var tweetView = new TweetView({collection: tweets});
+    
+});
