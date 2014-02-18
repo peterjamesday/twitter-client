@@ -186,6 +186,33 @@ function lightBox(){
     $(".lightBox").show();
 }
 
+
+
+
+
+//new
+
+$(document).scroll(function(){
+    checkScroll();
+});
+
+function checkScroll(){
+    var docPosition = $(document).scrollTop();
+    if(docPosition + 1000 > $(document).height()){
+        //this is too fast...
+        paginate();
+    }
+
+}
+
+
+function paginate(){
+debugger
+    tweets.fetch({data: {page: twitterClient.currentPage }});
+    twitterClient.currentPage += 1;
+   
+}
+
 */
 
 //global object for global variables
@@ -209,24 +236,31 @@ var twitterClient = {
 
 
 
-
 var TweetsView = Backbone.View.extend({
 
     el: ".list", 
 
     initialize: function(){
         // this.render();
-         this.collection.on("reset", this.render, this);
+        var self = this;
+         this.collection.on("reset sort", this.render, this);
         // this.collection.on('all', function(event){
         //     console.log(event);
+
             
         // });
+
+        $(window).bind('scroll', function(){
+            
+            self.checkScroll();
+            console.log("scrolling..");
+        });
     },
 
-    template: window.JST["test"],
+    template: window.JST["tweetCount"],
 
     render: function(){
-       
+      
         for(var i = 0; i < this.collection.length; i++){
             var tweetView = new TweetView({
                  model: this.collection.at(i)
@@ -237,19 +271,61 @@ var TweetsView = Backbone.View.extend({
     },
 
     events: {
-        "click h3": "turnRed",
+        "scroll div": "turnRed",
         "mouseover .bubble": "hoverSidebar"
     },
 
     turnRed: function(event){
-        $(event.currentTarget).css("color", "red");
+        
+
+
+        
+        // $(event.currentTarget).css("color", "red");
+        // twitterClient.currentPage += 1;
+        // this.collection.fetch({data: {page: twitterClient.currentPage }});
     },
 
     hoverSidebar: function(event){
+        
+        var bubbleTop = $(event.currentTarget).offset().top + 50,
+            bubbleIndex = $(event.currentTarget).index();
+            
+                $('.popUp').show();
+                $('.popUp').html(this.template(this.collection.at(bubbleIndex).toJSON()));
+                $('.popUp').css("top", bubbleTop);
+    },
 
+    checkScroll: function(){
+        var docPosition = $(document).scrollTop();
+        if(docPosition + 1000 > $(document).height()){
+            //this is too fast...
+            twitterClient.currentPage += 1;
+            this.collection.fetch({data: {page: twitterClient.currentPage }});
+        }
     }
 
 });
+
+
+var SidebarView = Backbone.View.extend({
+    el: ".sideBar",
+
+    events: {
+        "click button.sort": "retweetSort"
+    },
+
+    retweetSort: function(){
+         $(".list").html('');
+        this.collection.sortByRetweets();
+        this.collection.sort();
+        debugger
+    }
+
+});
+
+
+
+
 
 
 var TweetView = Backbone.View.extend({
@@ -286,48 +362,113 @@ var Tweet = Backbone.Model.extend({
 var Tweets = Backbone.Collection.extend({
     model: Tweet,
 
+
     url: "/api/retrieveTweets/abcd",
 
     initialize: function(){
-        this.fetch({data: {page: 1 }});
+        this.fetch({data: {page: twitterClient.currentPage }, reset: false});
+        
+    },
+
+    comparator: function() {
+        
     },
 
     parse: function(response){
        
         return response.statuses;
+    },
+
+    sortByRetweets: function(){
+        this.comparator = function(tweet){
+            return -tweet.get("retweet_count");
+        }
     }
+
+    
 });
 
 
 var TweetPostView = Backbone.View.extend({
-    tagName: "form",
+    el: ".post-form",
+
+    initialize: function() {
+        
+    },
 
     events:{
-        "click button": "stopReload"
+        "click button": "stopReload",
+        "click button": "submitPost"
     },
 
     stopReload: function(event){
         
         event.preventDefault();
+    },
+
+    submitPost: function(event){
+
+        event.preventDefault();
+        var postContent = $(".form-input").val();
+        var postUsername = $(".form-username").val();
+        // this.model.set({message: postContent});
+        this.model.set({username: postUsername});
+        
+        debugger
+        // this.model.save(null, {
+        //     error: function (originalModel, resp, options) {
+                
+        //         debugger
+        //     },
+        //     success: function (response) {
+        //         debugger
+        //     }
+        // });
+        $(".form-input").val('');
+        $(".form-username").val('');
+    }
+
+});
+//use jquery to get the stuff in the form, use this.model.set to send it to the model, define url in model, call this.model.save();
+
+var TweetPost = Backbone.Model.extend({
+    url: "api/posttweet",
+
+    defaults:{
+        message: '',
+        username: ''
+    },
+
+    validate: function(attrs, options){
+        console.log(attrs.message);
+        if(attrs.message == '' || attrs.username == ''){
+            
+            return "please fill in all the text boxes"
+        }
     }
 
 });
 
 
-var TweetPost = Backbone.Model.extend({
 
-});
-
+//paginate, sort, listhover, post
 
 $(document).ready(function(){
     
     var tweets = new Tweets();
     window.tweet = new Tweet();
+    var tweetPost = new TweetPost();
     var tweetsView = new TweetsView({collection: tweets});
-    var tweetPostView = new TweetPostView({tagName: 'form'});
+    var tweetPostView = new TweetPostView({model: tweetPost});
+    var sidebarView = new SidebarView({collection: tweets});
 
+    tweetPost.on("invalid", function(model, error){
+        debugger
+    });
     // $('form').submit(function(event){
     // event.preventDefault();
 // });
     
 });
+
+//implement devise. and want to log in and log out with backbone. 

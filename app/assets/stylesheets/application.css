@@ -139,6 +139,7 @@ h2{
 	z-index: 2;
 	border-top-right-radius: 50px;
 	border-bottom-right-radius: 50px;
+	display: none;
 }
 
 .additionalInfo{
@@ -194,6 +195,7 @@ h2{
 	margin-bottom: 10px;
 }
 
+
 .form-username{
 	height: 50px;
 	width: 375px;
@@ -204,6 +206,8 @@ h2{
 	margin-bottom: 10px;
 	vertical-align: middle;
 }
+
+
 
 .form-button{
     height: 55px;
