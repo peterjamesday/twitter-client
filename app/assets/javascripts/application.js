@@ -15,6 +15,53 @@
 //= require jquery_ujs
 //= require underscore
 //= require backbone
+//= require backbone_rails_sync
+//= require_tree ./models
+//= require_tree ./views
 //= require_tree ../templates
 //= require_tree .
+
+// Rails CSRF Protection
+$(document).ajaxSend(function (e, xhr, options) {
+  var token = $("meta[name='csrf-token']").attr("content");
+  xhr.setRequestHeader("X-CSRF-Token", token);
+});
+
+_.templateSettings = {
+    interpolate: /{{=(.+?)}}/g,
+    evaluate: /{{(.+?)}}/g
+};
+
+Router = {
+  '/signup': function () { new SignupView(); },
+  '/login': function () { new LoginView(); },
+// /tweets, also add models and views to folders
+  route: function (path) {
+    _.each(Router, function(callback, route) {
+      if (!_.isRegExp(route)) {
+        route = Backbone.Router.prototype._routeToRegExp(route);
+      }
+      if(route.test(path)) {
+        var args = Backbone.Router.prototype._extractParameters(route, path);
+        callback.apply(this, args);
+      }
+    });
+  }
+};
+
+$(document).ready(function () {
+  Router.route(window.location.pathname);
+  var tweets = new Tweets();
+    window.tweet = new Tweet();
+    var tweetPost = new TweetPost();
+    var tweetsView = new TweetsView({collection: tweets});
+    var tweetPostView = new TweetPostView({model: tweetPost});
+    var sidebarView = new SidebarView({collection: tweets});
+
+    tweetPost.on("invalid", function(model, error){
+        debugger
+    });
+});
+
+
 

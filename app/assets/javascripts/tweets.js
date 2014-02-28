@@ -215,11 +215,7 @@ debugger
 
 */
 
-//global object for global variables
-var twitterClient = {
-    currentPage: 1,
 
-}
 // var TweetsView = Backbone.View.extend({
 //     render: function(){
 //         debugger
@@ -236,218 +232,21 @@ var twitterClient = {
 
 
 
-var TweetsView = Backbone.View.extend({
-
-    el: ".list", 
-
-    initialize: function(){
-        // this.render();
-        var self = this;
-         this.collection.on("reset sort", this.render, this);
-        // this.collection.on('all', function(event){
-        //     console.log(event);
-
-            
-        // });
-
-        $(window).bind('scroll', function(){
-            
-            self.checkScroll();
-            console.log("scrolling..");
-        });
-    },
-
-    template: window.JST["tweetCount"],
-
-    render: function(){
-      
-        for(var i = 0; i < this.collection.length; i++){
-            var tweetView = new TweetView({
-                 model: this.collection.at(i)
-            });
-
-            $('.list').append(tweetView.render().el); 
-        }  
-    },
-
-    events: {
-        "scroll div": "turnRed",
-        "mouseover .bubble": "hoverSidebar"
-    },
-
-    turnRed: function(event){
-        
-
-
-        
-        // $(event.currentTarget).css("color", "red");
-        // twitterClient.currentPage += 1;
-        // this.collection.fetch({data: {page: twitterClient.currentPage }});
-    },
-
-    hoverSidebar: function(event){
-        
-        var bubbleTop = $(event.currentTarget).offset().top + 50,
-            bubbleIndex = $(event.currentTarget).index();
-            
-                $('.popUp').show();
-                $('.popUp').html(this.template(this.collection.at(bubbleIndex).toJSON()));
-                $('.popUp').css("top", bubbleTop);
-    },
-
-    checkScroll: function(){
-        var docPosition = $(document).scrollTop();
-        if(docPosition + 1000 > $(document).height()){
-            //this is too fast...
-            twitterClient.currentPage += 1;
-            this.collection.fetch({data: {page: twitterClient.currentPage }});
-        }
-    }
-
-});
-
-
-var SidebarView = Backbone.View.extend({
-    el: ".sideBar",
-
-    events: {
-        "click button.sort": "retweetSort"
-    },
-
-    retweetSort: function(){
-         $(".list").html('');
-        this.collection.sortByRetweets();
-        this.collection.sort();
-        debugger
-    }
-
-});
 
 
 
 
 
 
-var TweetView = Backbone.View.extend({
-    className: "bubble",
-
-    template: window.JST["tweet"],
-
-    render: function(){
-      this.$el.html(this.template(this.model.toJSON()));
-      return this;
-    },
-
-    events: {
-        "click": "bogusEvent"
-    },
-
-    bogusEvent: function(){
-        debugger
-    }
-
-
-});
 
 
 
 
 
-var Tweet = Backbone.Model.extend({
-
-});
 
 
 
-var Tweets = Backbone.Collection.extend({
-    model: Tweet,
 
-
-    url: "/api/retrieveTweets/abcd",
-
-    initialize: function(){
-        this.fetch({data: {page: twitterClient.currentPage }, reset: false});
-        
-    },
-
-    comparator: function() {
-        
-    },
-
-    parse: function(response){
-       
-        return response.statuses;
-    },
-
-    sortByRetweets: function(){
-        this.comparator = function(tweet){
-            return -tweet.get("retweet_count");
-        }
-    }
-
-    
-});
-
-
-var TweetPostView = Backbone.View.extend({
-    el: ".post-form",
-
-    initialize: function() {
-        
-    },
-
-    events:{
-        "click button": "stopReload",
-        "click button": "submitPost"
-    },
-
-    stopReload: function(event){
-        
-        event.preventDefault();
-    },
-
-    submitPost: function(event){
-
-        event.preventDefault();
-        var postContent = $(".form-input").val();
-        var postUsername = $(".form-username").val();
-        // this.model.set({message: postContent});
-        this.model.set({username: postUsername});
-        
-        debugger
-        // this.model.save(null, {
-        //     error: function (originalModel, resp, options) {
-                
-        //         debugger
-        //     },
-        //     success: function (response) {
-        //         debugger
-        //     }
-        // });
-        $(".form-input").val('');
-        $(".form-username").val('');
-    }
-
-});
-//use jquery to get the stuff in the form, use this.model.set to send it to the model, define url in model, call this.model.save();
-
-var TweetPost = Backbone.Model.extend({
-    url: "api/posttweet",
-
-    defaults:{
-        message: '',
-        username: ''
-    },
-
-    validate: function(attrs, options){
-        console.log(attrs.message);
-        if(attrs.message == '' || attrs.username == ''){
-            
-            return "please fill in all the text boxes"
-        }
-    }
-
-});
 
 
 
