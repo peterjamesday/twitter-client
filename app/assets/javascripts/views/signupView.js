@@ -32,7 +32,7 @@ SignupView = Backbone.View.extend({
       },
       success: function () {
         self.form.data('user-created', true);
-        //render the tweets
+        window.location = "/";
       }
     });
 

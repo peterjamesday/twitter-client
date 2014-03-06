@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     destroy_user_session
-    redirect_to '/', :notice => "Logged out."
+    redirect_to '/login', :notice => "Logged out."
   end
 
 end

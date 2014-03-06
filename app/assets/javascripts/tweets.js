@@ -252,22 +252,22 @@ debugger
 
 //paginate, sort, listhover, post
 
-$(document).ready(function(){
+// $(document).ready(function(){
     
-    var tweets = new Tweets();
-    window.tweet = new Tweet();
-    var tweetPost = new TweetPost();
-    var tweetsView = new TweetsView({collection: tweets});
-    var tweetPostView = new TweetPostView({model: tweetPost});
-    var sidebarView = new SidebarView({collection: tweets});
+//     var tweets = new Tweets();
+//     window.tweet = new Tweet();
+//     var tweetPost = new TweetPost();
+//     var tweetsView = new TweetsView({collection: tweets});
+//     var tweetPostView = new TweetPostView({model: tweetPost});
+//     var sidebarView = new SidebarView({collection: tweets});
 
-    tweetPost.on("invalid", function(model, error){
-        debugger
-    });
-    // $('form').submit(function(event){
-    // event.preventDefault();
-// });
+//     tweetPost.on("invalid", function(model, error){
+//         debugger
+//     });
+//     // $('form').submit(function(event){
+//     // event.preventDefault();
+// // });
     
-});
+// });
 
 //implement devise. and want to log in and log out with backbone. 

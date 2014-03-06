@@ -17,6 +17,14 @@
 				#Stanford Twitter Feed
 				
 			</h1>
+			<div class="authenticate">
+				<% if @logged_in %>
+				<a href="/logout">Logout</a>
+				<% else %>
+				<a href= "/login">Log In</a>
+				<a href="/signup">Sign Up</a>
+				<% end %>
+			</div>
 		</div>
 
 		<div class="errorMessage">

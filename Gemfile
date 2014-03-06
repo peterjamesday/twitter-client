@@ -7,10 +7,11 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3', :group => [:development, :test]
-gem 'bcrypt', :require => 'bcrypt'
+gem 'bcrypt-ruby', '3.0.0'
 gem 'email_validator'
 
-
+gem 'turbolinks'
+gem "therubyracer"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -34,6 +35,12 @@ gem "twitter", "~> 5.5.1"
 gem 'ejs'
 
 gem "rails-backbone"
+
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
 
 gem 'rails_12factor', :group => :production
 gem 'pg', :group => :production
