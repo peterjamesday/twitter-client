@@ -15,6 +15,9 @@ class UsersController < ApplicationController
       end
       flash[:notice] = 'Account created.'
 
+      create_user_session(@user)
+      
+
     else
      
        respond_to do |format|

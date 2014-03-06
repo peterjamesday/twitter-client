@@ -31,6 +31,7 @@ SignupView = Backbone.View.extend({
         self.submitButton.removeClass('disabled');
       },
       success: function () {
+        
         self.form.data('user-created', true);
         window.location = "/";
       }

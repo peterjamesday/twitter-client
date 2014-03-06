@@ -7,7 +7,7 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3', :group => [:development, :test]
-gem 'bcrypt-ruby', '3.0.0'
+gem 'bcrypt', :require => 'bcrypt'
 gem 'email_validator'
 
 gem 'turbolinks'
