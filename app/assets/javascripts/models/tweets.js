@@ -1,6 +1,6 @@
 //global object for global variables
 var twitterClient = {
-    currentPage: 1,
+    currentPage: 1
 
 }
 

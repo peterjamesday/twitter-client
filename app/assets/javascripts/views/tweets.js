@@ -1,153 +1,153 @@
 
-var TweetsView = Backbone.View.extend({
+// var TweetsView = Backbone.View.extend({
 
-    el: ".list", 
+//     el: ".list", 
 
-    initialize: function(){
-        // this.render();
-        var self = this;
-         this.collection.on("reset sort", this.render, this);
-        // this.collection.on('all', function(event){
-        //     console.log(event);
+//     initialize: function(){
+//         // this.render();
+//         var self = this;
+//          this.collection.on("reset sort", this.render, this);
+//         // this.collection.on('all', function(event){
+//         //     console.log(event);
 
             
-        // });
+//         // });
 
-        $(window).bind('scroll', function(){
+//         $(window).bind('scroll', function(){
             
-            self.checkScroll();
-            console.log("scrolling..");
-        });
-    },
+//             self.checkScroll();
+//             console.log("scrolling..");
+//         });
+//     },
 
-    template: window.JST["tweetCount"],
+//     template: window.JST["tweetCount"],
 
-    render: function(){
+//     render: function(){
       
-        for(var i = 0; i < this.collection.length; i++){
-            var tweetView = new TweetView({
-                 model: this.collection.at(i)
-            });
+//         for(var i = 0; i < this.collection.length; i++){
+//             var tweetView = new TweetView({
+//                  model: this.collection.at(i)
+//             });
 
-            $('.list').append(tweetView.render().el); 
-        }  
-    },
+//             $('.list').append(tweetView.render().el); 
+//         }  
+//     },
 
-    events: {
-        "scroll div": "turnRed",
-        "mouseover .bubble": "hoverSidebar"
-    },
+//     events: {
+//         "scroll div": "turnRed",
+//         "mouseover .bubble": "hoverSidebar"
+//     },
 
-    turnRed: function(event){
+//     turnRed: function(event){
         
 
 
         
-        // $(event.currentTarget).css("color", "red");
-        // twitterClient.currentPage += 1;
-        // this.collection.fetch({data: {page: twitterClient.currentPage }});
-    },
+//         // $(event.currentTarget).css("color", "red");
+//         // twitterClient.currentPage += 1;
+//         // this.collection.fetch({data: {page: twitterClient.currentPage }});
+//     },
 
-    hoverSidebar: function(event){
+//     hoverSidebar: function(event){
         
-        var bubbleTop = $(event.currentTarget).offset().top + 50,
-            bubbleIndex = $(event.currentTarget).index();
+//         var bubbleTop = $(event.currentTarget).offset().top + 50,
+//             bubbleIndex = $(event.currentTarget).index();
             
-                $('.popUp').show();
-                $('.popUp').html(this.template(this.collection.at(bubbleIndex).toJSON()));
-                $('.popUp').css("top", bubbleTop);
-    },
+//                 $('.popUp').show();
+//                 $('.popUp').html(this.template(this.collection.at(bubbleIndex).toJSON()));
+//                 $('.popUp').css("top", bubbleTop);
+//     },
 
-    checkScroll: function(){
-        var docPosition = $(document).scrollTop();
-        if(docPosition + 1000 > $(document).height()){
-            //this is too fast...
-            twitterClient.currentPage += 1;
-            this.collection.fetch({data: {page: twitterClient.currentPage }});
-        }
-    }
+//     checkScroll: function(){
+//         var docPosition = $(document).scrollTop();
+//         if(docPosition + 1000 > $(document).height()){
+//             //this is too fast...
+//             twitterClient.currentPage += 1;
+//             this.collection.fetch({data: {page: twitterClient.currentPage }});
+//         }
+//     }
 
-});
-
-
-
-var TweetView = Backbone.View.extend({
-    className: "bubble",
-
-    template: window.JST["tweet"],
-
-    render: function(){
-      this.$el.html(this.template(this.model.toJSON()));
-      return this;
-    },
-
-    events: {
-        "click": "bogusEvent"
-    },
-
-    bogusEvent: function(){
-        debugger
-    }
-
-
-});
+// });
 
 
 
-var SidebarView = Backbone.View.extend({
-    el: ".sideBar",
+// var TweetView = Backbone.View.extend({
+//     className: "bubble",
 
-    events: {
-        "click button.sort": "retweetSort"
-    },
+//     template: window.JST["tweet"],
 
-    retweetSort: function(){
-         $(".list").html('');
-        this.collection.sortByRetweets();
-        this.collection.sort();
-        debugger
-    }
+//     render: function(){
+//       this.$el.html(this.template(this.model.toJSON()));
+//       return this;
+//     },
 
-});
+//     events: {
+//         "click": "bogusEvent"
+//     },
+
+//     bogusEvent: function(){
+//         debugger
+//     }
 
 
-var TweetPostView = Backbone.View.extend({
-    el: ".post-form",
+// });
 
-    initialize: function() {
+
+
+// var SidebarView = Backbone.View.extend({
+//     el: ".sideBar",
+
+//     events: {
+//         "click button.sort": "retweetSort"
+//     },
+
+//     retweetSort: function(){
+//          $(".list").html('');
+//         this.collection.sortByRetweets();
+//         this.collection.sort();
+//         debugger
+//     }
+
+// });
+
+
+// var TweetPostView = Backbone.View.extend({
+//     el: ".post-form",
+
+//     initialize: function() {
         
-    },
+//     },
 
-    events:{
-        "click button": "stopReload",
-        "click button": "submitPost"
-    },
+//     events:{
+//         "click button": "stopReload",
+//         "click button": "submitPost"
+//     },
 
-    stopReload: function(event){
+//     stopReload: function(event){
         
-        event.preventDefault();
-    },
+//         event.preventDefault();
+//     },
 
-    submitPost: function(event){
+//     submitPost: function(event){
 
-        event.preventDefault();
-        var postContent = $(".form-input").val();
-        var postUsername = $(".form-username").val();
-        // this.model.set({message: postContent});
-        this.model.set({username: postUsername});
+//         event.preventDefault();
+//         var postContent = $(".form-input").val();
+//         var postUsername = $(".form-username").val();
+//         // this.model.set({message: postContent});
+//         this.model.set({username: postUsername});
         
-        debugger
-        // this.model.save(null, {
-        //     error: function (originalModel, resp, options) {
+//         debugger
+//         // this.model.save(null, {
+//         //     error: function (originalModel, resp, options) {
                 
-        //         debugger
-        //     },
-        //     success: function (response) {
-        //         debugger
-        //     }
-        // });
-        $(".form-input").val('');
-        $(".form-username").val('');
-    }
+//         //         debugger
+//         //     },
+//         //     success: function (response) {
+//         //         debugger
+//         //     }
+//         // });
+//         $(".form-input").val('');
+//         $(".form-username").val('');
+//     }
 
-});
+// });

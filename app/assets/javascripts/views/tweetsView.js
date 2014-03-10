@@ -59,14 +59,15 @@ var TweetsView = Backbone.View.extend({
                 $('.popUp').css("top", bubbleTop);
     },
 
-    checkScroll: function(){
+    checkScroll: _.throttle(function(){
         var docPosition = $(document).scrollTop();
+        var self = this;
+
         if(docPosition + 1000 > $(document).height()){
-            //this is too fast...
-            twitterClient.currentPage += 1;
-            this.collection.fetch({data: {page: twitterClient.currentPage }});
+              twitterClient.currentPage += 1;
+              self.collection.fetch({data: {page: twitterClient.currentPage }}); 
         }
-    }
+    }, 1000)
 
 });
 
