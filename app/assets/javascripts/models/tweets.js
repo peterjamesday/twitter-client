@@ -1,7 +1,7 @@
 //global object for global variables
 var twitterClient = {
-    currentPage: 1
-
+    currentPage: 1,
+    maxId: 1
 }
 
 
@@ -19,7 +19,7 @@ var Tweets = Backbone.Collection.extend({
     url: "/api/retrieveTweets/abcd",
 
     initialize: function(){
-        this.fetch({data: {page: twitterClient.currentPage }, reset: false});
+        this.fetch({data: {page: twitterClient.currentPage}, reset: false});
         
     },
 
@@ -27,14 +27,16 @@ var Tweets = Backbone.Collection.extend({
         
     },
 
-    parse: function(response){
-       
-        return response.statuses;
-    },
 
     sortByRetweets: function(){
         this.comparator = function(tweet){
             return -tweet.get("retweet_count");
+        }
+    },
+
+    sortByMaxId: function(){
+        this.comparator = function(tweet){
+            return tweet.get("id");
         }
     }
 

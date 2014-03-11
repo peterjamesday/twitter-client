@@ -64,8 +64,13 @@ var TweetsView = Backbone.View.extend({
         var self = this;
 
         if(docPosition + 1000 > $(document).height()){
+
               twitterClient.currentPage += 1;
-              self.collection.fetch({data: {page: twitterClient.currentPage }}); 
+              self.collection.sortByMaxId();
+              self.collection.sort();
+              
+              twitterClient.maxId = self.collection.at(1).get("id");
+              self.collection.fetch({data: {page: twitterClient.currentPage, max_id: twitterClient.maxId }}); 
         }
     }, 1000)
 
@@ -107,7 +112,7 @@ var SidebarView = Backbone.View.extend({
          $(".list").html('');
         this.collection.sortByRetweets();
         this.collection.sort();
-        debugger
+       
     }
 
 });
