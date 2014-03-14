@@ -57,11 +57,31 @@ $(document).ready(function () {
     var tweetsView = new TweetsView({collection: tweets});
     var tweetPostView = new TweetPostView({model: tweetPost});
     var sidebarView = new SidebarView({collection: tweets});
-
+    
     tweetPost.on("invalid", function(model, error){
         debugger
     });
 });
 
+// Begin list.js integration
+
+var options = {
+    valueNames: ['retweet', 'name', 'text', 'tweetCount', 'followers']
+};
+
+
+function createList () {
+    var tweetList = new List('tweet-list', options);
+    
+    //tweetList.items[i]
+}
+
+$(document).ajaxComplete(function(){
+    
+    createList();
+    
+});
+
+// End list.js integration
 
 

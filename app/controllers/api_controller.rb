@@ -12,7 +12,7 @@ class ApiController < ApplicationController
     end
 
 
-    tweets = client.search('#Stanford', :max_id => params["max_id"]).take(40)
+    tweets = client.search('#Stanford', :max_id => params[:max_id]).take(40)
 
    
 
