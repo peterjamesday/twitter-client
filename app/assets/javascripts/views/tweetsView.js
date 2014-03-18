@@ -124,8 +124,8 @@ var SidebarView = Backbone.View.extend({
     },
 
     events: {
-        "click button.sortByRetweets": "retweetSort"
-        // "click button.sortByFollowers": "listTopThree"
+        "click button.sortByRetweets": "retweetSort",
+        "click button.sortByFollowers": "listTopThree"
     },
 
     retweetSort: function(){
