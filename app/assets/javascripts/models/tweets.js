@@ -38,6 +38,12 @@ var Tweets = Backbone.Collection.extend({
         this.comparator = function(tweet){
             return tweet.get("id");
         }
+    },
+
+    sortByTweetCount: function(){
+        this.comparator = function(tweet){
+            return -tweet.get("user").statuses_count;
+        }
     }
 
     

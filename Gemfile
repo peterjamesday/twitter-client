@@ -34,8 +34,8 @@ gem 'jquery-rails'
 gem "twitter", "~> 5.5.1"
 gem 'ejs'
 
-gem "rails-backbone"
-
+# gem "rails-backbone"
+gem 'rails-backbone', :git => 'git://github.com/codebrew/backbone-rails.git'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

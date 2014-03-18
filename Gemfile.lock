@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/codebrew/backbone-rails.git
+  revision: dc1a49f46cfb554c989ee449794f54bea2c3ef32
+  specs:
+    rails-backbone (1.1.0)
+      coffee-script
+      ejs
+      jquery-rails
+      railties
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -102,10 +112,6 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails-backbone (0.7.2)
-      coffee-script (~> 2.2.0)
-      ejs (~> 1.0.0)
-      railties (>= 3.1.0)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -179,7 +185,7 @@ DEPENDENCIES
   pry
   pry-debugger
   rails (= 3.2.13)
-  rails-backbone
+  rails-backbone!
   rails_12factor
   sass-rails (~> 3.2.3)
   sdoc
