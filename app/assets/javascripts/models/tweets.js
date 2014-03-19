@@ -28,9 +28,13 @@ var Tweets = Backbone.Collection.extend({
     },
 
 
-    sortByRetweets: function(){
+    sortByRetweets: function(retweetSortedDirection){
         this.comparator = function(tweet){
-            return -tweet.get("retweet_count");
+            if(retweetSortedDirection == false){
+                return -tweet.get("retweet_count");
+            } else{
+                return tweet.get("retweet_count");
+            }
         }
     },
 
@@ -43,6 +47,16 @@ var Tweets = Backbone.Collection.extend({
     sortByTweetCount: function(){
         this.comparator = function(tweet){
             return -tweet.get("user").statuses_count;
+        }
+    },
+
+    sortByFollowers: function(followersSortedDirection){
+        this.comparator = function(tweet){
+          if(followersSortedDirection == false){
+            return -tweet.get("user").followers_count;
+          } else {
+            return tweet.get("user").followers_count;
+          }
         }
     }
 

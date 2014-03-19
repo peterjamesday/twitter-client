@@ -10,6 +10,7 @@ var TweetsView = Backbone.View.extend({
         var self = this;
          this.collection.on("reset sync", this.render, this);
          this.collection.on("sortRetweets", this.renderSortedList, this);
+         this.collection.on("sortByFollowers", this.renderSortedList, this);
 
         // this.collection.on('all', function(event){
         //     console.log(event);
@@ -46,11 +47,11 @@ var TweetsView = Backbone.View.extend({
     hoverSidebar: function(event){
         
         var bubbleTop = $(event.currentTarget).offset().top + 50,
-            bubbleIndex = $(event.currentTarget).index();
+            bubbleIndex = $(event.currentTarget).data("id");
             console.log("collection length: " + this.collection.length);
             console.log("bubbleIndex: " + bubbleIndex);
                 $('.popUp').show();
-                $('.popUp').html(this.template(this.collection.at(bubbleIndex).toJSON()));
+                $('.popUp').html(this.template(this.collection.findWhere({id: bubbleIndex}).toJSON()));
                 
                 
                 $('.popUp').css("top", bubbleTop);
@@ -94,7 +95,8 @@ var TweetView = Backbone.View.extend({
     template: window.JST["tweet"],
 
     render: function(){
-      this.$el.html(this.template(this.model.toJSON()));
+      console.log(this.model.toJSON());
+      this.$el.html(this.template(this.model.toJSON())).data("id", this.model.get('id'));
       return this;
     },
 
@@ -115,7 +117,10 @@ var SidebarView = Backbone.View.extend({
     el: ".sideBar",
 
     initialize: function(){
-        this.collection.on("render", this.listTopThree, this);
+        this.collection.on("sync", this.listTopThree, this);
+       //  this.collection.on('all', function(event){
+       //   console.log(event);
+       // });
     },
 
     render: function(){
@@ -123,14 +128,25 @@ var SidebarView = Backbone.View.extend({
         
     },
 
+    retweetSortedDirection: false,
+
+    followersSortedDirection: false,
+
     events: {
         "click button.sortByRetweets": "retweetSort",
-        "click button.sortByFollowers": "listTopThree"
+        "click button.sortByFollowers": "followersSort"
     },
 
     retweetSort: function(){
          $(".list").html('');
-        this.collection.sortByRetweets();
+        this.collection.sortByRetweets(this.retweetSortedDirection);
+
+        if(this.retweetSortedDirection == false){
+          this.retweetSortedDirection = true;
+        } else {
+          this.retweetSortedDirection = false;
+        }
+
         this.collection.sort();
         this.collection.trigger("sortRetweets");
     },
@@ -157,9 +173,26 @@ var SidebarView = Backbone.View.extend({
         }
         
 
+    },
+
+    followersSort: function(){
+        $(".list").html('');
+        this.collection.sortByFollowers(this.followersSortedDirection);
+
+        if(this.followersSortedDirection == false){
+          this.followersSortedDirection = true;
+        } else {
+          this.followersSortedDirection = false;
+        }
+
+        this.collection.sort();
+        this.collection.trigger("sortByFollowers");
     }
 
 });
+
+
+
 
 
 var TweetPostView = Backbone.View.extend({
@@ -207,3 +240,6 @@ var TweetPostView = Backbone.View.extend({
     }
 
 });
+
+
+//post, make the popup retweet, change query based on users preferences
