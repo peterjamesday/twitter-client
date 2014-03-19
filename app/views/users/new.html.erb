@@ -19,6 +19,13 @@
     </div>
 
     <div class="control-group">
+      <%= label_tag :search_query, nil, :class => 'control-label' %>
+      <div class="controls"> 
+        <%= text_field_tag :search_query, nil, :placeholder => '#Stanford' %>
+      </div>
+    </div>
+
+    <div class="control-group">
       <%= label_tag :password, nil, :class => 'control-label' %>
       <div class="controls">
         <%= password_field_tag :password %>

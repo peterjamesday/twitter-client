@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true, :email => true
   validates :password, :presence => true, :confirmation => true
   validates :password_confirmation, :presence => { :if => :password }
+  validates :search_query, :presence => true
   validates :phone, :format => { :allow_nil => true, :with => /^[()0-9- +.]{10,20}s*[extension.]{0,9}s*[0-9]{0,5}$/i }
 
   def self.authenticate(email, pass)

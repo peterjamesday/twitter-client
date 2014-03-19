@@ -7,7 +7,8 @@ SignupView = Backbone.View.extend({
       name: this.nameField.val(),
       email: this.emailField.val(),
       password: this.passwordField.val(),
-      password_confirmation: this.passwordConfirmationField.val()
+      password_confirmation: this.passwordConfirmationField.val(),
+      search_query: this.searchQueryField.val()
     };
   },
 
@@ -46,6 +47,7 @@ SignupView = Backbone.View.extend({
     this.emailField = this.$el.find('input[name=email]');
     this.passwordField = this.$el.find('input[name=password]');
     this.passwordConfirmationField = this.$el.find('input[name=password_confirmation]');
+    this.searchQueryField = this.$el.find('input[name=search_query]');
     this.submitButton = this.$el.find('input[type=submit]');
   },
 

@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-
+before_filter :require_user
 
   
   def retrieveTweets
@@ -12,7 +12,16 @@ class ApiController < ApplicationController
     end
 
 
-    tweets = client.search('#Stanford', :max_id => params[:max_id]).take(40)
+
+    # if @user
+      @search_query = @current_user.search_query
+      tweets = client.search(@search_query, :max_id => params[:max_id]).take(40)
+    # else
+    #   @search_query = "#stanford"
+    #   tweets = client.search(@search_query, :max_id => params[:max_id]).take(40)
+    # end
+
+   
 
    
 

@@ -21,7 +21,7 @@ var TweetsView = Backbone.View.extend({
         $(window).bind('scroll', function(){
             
             self.checkScroll();
-            console.log("scrolling..");
+            // console.log("scrolling..");
         });
     },
 
@@ -48,13 +48,11 @@ var TweetsView = Backbone.View.extend({
         
         var bubbleTop = $(event.currentTarget).offset().top + 50,
             bubbleIndex = $(event.currentTarget).data("id");
-            console.log("collection length: " + this.collection.length);
-            console.log("bubbleIndex: " + bubbleIndex);
+            
                 $('.popUp').show();
                 $('.popUp').html(this.template(this.collection.findWhere({id: bubbleIndex}).toJSON()));
-                
-                
                 $('.popUp').css("top", bubbleTop);
+               
     },
 
     checkScroll: _.throttle(function(){
@@ -95,21 +93,46 @@ var TweetView = Backbone.View.extend({
     template: window.JST["tweet"],
 
     render: function(){
-      console.log(this.model.toJSON());
+      // console.log(this.model.toJSON());
       this.$el.html(this.template(this.model.toJSON())).data("id", this.model.get('id'));
       return this;
     },
 
     events: {
-        "click": "bogusEvent"
+        "click": "replyToTweet"
     },
 
-    bogusEvent: function(){
-        debugger
+    replyToTweet: function(){
+        var replyTo = '@' + this.model.get('user').screen_name;
+    
+    $('.form-input').val(replyTo);
     }
 
 
 });
+
+
+var PopUpView = Backbone.View.extend({
+  className: "popUp",
+
+  initialize:function(){
+
+  },
+  // template: window.JST["tweetCount"],
+
+  events: {
+    "click": "reply"
+  },
+
+  reply: function(){
+    
+    var replyTo = '@' + this.model.get('user').screen_name + " ";
+    
+    $('.form-input').val(replyTo);
+  }
+});
+
+
 
 
 
@@ -162,11 +185,11 @@ var SidebarView = Backbone.View.extend({
         
         for(var i = 0; i < 40; i++){
             
-            name = this.collection.at(i).get("user").name;
+            name = this.collection.at(i).get("user").screen_name;
             statuses = this.collection.at(i).get("user").statuses_count;
             if(i == 0){
                 $('.topThree').append("<h2>"+ name + ": " + statuses + "</h2>");
-            } else if (name != this.collection.at(i-1).get("user").name && counter < 2){
+            } else if (name != this.collection.at(i-1).get("user").screen_name && counter < 2){
                 $('.topThree').append("<h2>"+ name + ": " + statuses + "</h2>");
                 counter += 1;
             } 

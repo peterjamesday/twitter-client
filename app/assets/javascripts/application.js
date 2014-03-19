@@ -58,6 +58,7 @@ $(document).ready(function () {
     var tweetPostView = new TweetPostView({model: tweetPost});
     var sidebarView = new SidebarView({collection: tweets});
     
+    createList();
     tweetPost.on("invalid", function(model, error){
         debugger
     });
@@ -76,11 +77,11 @@ function createList () {
     //tweetList.items[i]
 }
 
-$(document).ajaxComplete(function(){
+// $(document).ajaxComplete(function(){
     
-    createList();
     
-});
+    
+// });
 
 // End list.js integration
 
