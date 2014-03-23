@@ -14,7 +14,11 @@
 	
 		<div class="banner">
 			<h1>
-				Hi
+				<% if @logged_in %>
+					#<%= @current_user.search_query.capitalize %> Twitter Feed
+				<% else %>
+					#Twitter Feed
+				<% end %>
 			</h1>
 			<div class="authenticate">
 				<% if @logged_in %>
