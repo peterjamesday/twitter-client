@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :twitter
       t.string  :facebook
       t.string  :web
-      t.string  :search_query
+      
       t.string  :password_digest, :null => false
 
       t.timestamps
