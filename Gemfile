@@ -27,6 +27,7 @@ end
 group :development do
   gem 'pry'
   gem 'pry-debugger'
+  gem 'rspec-rails', '2.13.1'
 end
 
 gem 'jquery-rails'
