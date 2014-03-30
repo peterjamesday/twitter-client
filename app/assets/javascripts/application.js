@@ -57,7 +57,7 @@ $(document).ready(function () {
     var tweetsView = new TweetsView({collection: tweets});
     var tweetPostView = new TweetPostView({model: tweetPost});
     var sidebarView = new SidebarView({collection: tweets});
-    
+   
     createList();
     tweetPost.on("invalid", function(model, error){
         debugger

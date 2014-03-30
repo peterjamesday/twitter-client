@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140323224956) do
+ActiveRecord::Schema.define(:version => 20140329213333) do
 
   create_table "users", :force => true do |t|
-    t.string   "name",            :null => false
-    t.string   "email",           :null => false
+    t.string   "name",                :null => false
+    t.string   "email",               :null => false
     t.string   "phone"
     t.string   "company"
     t.string   "title"
@@ -24,10 +24,17 @@ ActiveRecord::Schema.define(:version => 20140323224956) do
     t.string   "twitter"
     t.string   "facebook"
     t.string   "web"
-    t.string   "password_digest", :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "password_digest",     :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.string   "search_query"
+    t.string   "provider"
+    t.string   "ui"
+    t.string   "consumer_key"
+    t.string   "consumer_secret"
+    t.string   "access_token"
+    t.string   "access_token_secret"
+    t.string   "uid"
   end
 
 end

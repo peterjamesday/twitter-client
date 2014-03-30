@@ -8,13 +8,17 @@ TwitterApi::Application.routes.draw do
   get "api/retrieveTweets/:id" => "api#retrieveTweets"
 
   post "api/posttweet" => "api#postTweet"
+  
 
   match 'login'  => 'sessions#new', :via => :get
   match 'logout' => 'sessions#destroy', :via => [:get, :delete]
   match 'signup' => 'users#new', :via => :get
+  match 'auth/twitter/callback', to: "sessions#twitter_create" 
+  match 'auth/failure', to: redirect('/login') 
 
   resource :session, :only => [:new, :create, :destroy]
   resource :account, :controller => 'users', :except => [:index, :destroy, :show, :edit]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

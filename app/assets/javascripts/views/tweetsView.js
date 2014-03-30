@@ -157,7 +157,7 @@ var SidebarView = Backbone.View.extend({
 
     events: {
         "click button.sortByRetweets": "retweetSort",
-        "click button.sortByFollowers": "followersSort"
+        "click button.sortByFollowers": "followersSort",
     },
 
     retweetSort: function(){
@@ -241,19 +241,19 @@ var TweetPostView = Backbone.View.extend({
         event.preventDefault();
         var postContent = $(".form-input").val();
         var postUsername = $(".form-username").val();
-        // this.model.set({message: postContent});
-        this.model.set({username: postUsername});
+        this.model.set({message: postContent});
+        // this.model.set({username: postUsername});
         
-        debugger
-        // this.model.save(null, {
-        //     error: function (originalModel, resp, options) {
+        
+        this.model.save(null, {
+            error: function (originalModel, resp, options) {
                 
-        //         debugger
-        //     },
-        //     success: function (response) {
-        //         debugger
-        //     }
-        // });
+                debugger
+            },
+            success: function (response) {
+                debugger
+            }
+        });
         $(".form-input").val('');
         $(".form-username").val('');
     },

@@ -1,45 +1,35 @@
 class ApiController < ApplicationController
 before_filter :require_user
 
-  
-  def retrieveTweets
+  def twitterAuth
+    user = User.find(session[:user_id])
 
     client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = "cLjRhLvbbTPXhDRACCCA"
-      config.consumer_secret     = "Gzi9axezpgndUpFuZKY1BfsEzfqHeUYTqAi1yrVSW0"
-      config.access_token        = "376022262-drKqBAiZkGZBHZNOS9YBctaAcVTkZFg4QkGLUC6W"
-      config.access_token_secret = "TUkqz9UzkkXg3Lm0mGwAfDYSYvJhsY8Z24H0tzP2U4ShZ"
+      config.consumer_key        = ENV["CONSUMER_KEY"]
+      config.consumer_secret     = ENV["CONSUMER_SECRET"]
+      config.access_token        = user.access_token
+      config.access_token_secret = user.access_token_secret
     end
 
-
-
-    # if @user
+    return client
+  end
+  
+  
+  def retrieveTweets
+    if @current_user.search_query
       @search_query = @current_user.search_query
-      tweets = client.search(@search_query, :max_id => params[:max_id]).take(40)
-    # else
-    #   @search_query = "#stanford"
-    #   tweets = client.search(@search_query, :max_id => params[:max_id]).take(40)
-    # end
-
-   
-
-   
-
-
-    # file = File.join(Rails.root, 'app', 'assets', 'javascripts', 'stanford1.json')
-    # if Integer(params[:page]) <= 6
-    #   file = File.join(Rails.root, 'app', 'assets', 'javascripts', 'stanford' + params[:page] + '.json')
-
-    # end
-
-    # tweets = JSON.parse(File.read(file))
+    else
+      @search_query = "cats"
+    end
+    tweets = twitterAuth.search(@search_query + " -rt", :max_id => params[:max_id]).take(40)
     render :json => tweets, :status => 200
-
-    
   end
 
   def postTweet
-    if params.has_key?(:message) && params.has_key?(:username)
+
+
+    if params.has_key?(:message)
+      twitterAuth.update(params[:message])
       message = { :message => "Your response has been successfully posted."}
       render :json => message
     else

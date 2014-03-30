@@ -16,10 +16,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Account created.'
 
       create_user_session(@user)
-      
-
     else
-     
        respond_to do |format|
               format.json { render :json => @user.errors, :status => 500 }
        end

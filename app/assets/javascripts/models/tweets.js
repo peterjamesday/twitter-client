@@ -71,13 +71,13 @@ var TweetPost = Backbone.Model.extend({
     url: "api/posttweet",
 
     defaults:{
-        message: '',
-        username: ''
+        message: ''
+        
     },
 
     validate: function(attrs, options){
         console.log(attrs.message);
-        if(attrs.message == '' || attrs.username == ''){
+        if(attrs.message == ''){
             
             return "please fill in all the text boxes"
         }

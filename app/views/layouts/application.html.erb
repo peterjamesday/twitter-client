@@ -15,17 +15,18 @@
 		<div class="banner">
 			<h1>
 				<% if @logged_in %>
-					#<%= @current_user.search_query.capitalize %> Twitter Feed
+					#<%= @current_user.name %> Twitter Feed
 				<% else %>
 					#Twitter Feed
 				<% end %>
 			</h1>
 			<div class="authenticate">
+				
+
 				<% if @logged_in %>
 				<a href="/logout">Logout</a>
 				<% else %>
-				<a href= "/login">Log In</a>
-				<a href="/signup">Sign Up</a>
+				<%= link_to "Sign in with Twitter", "/auth/twitter"%>
 				<% end %>
 			</div>
 		</div>
@@ -38,6 +39,20 @@
 		
 		<div class="container">
 		<div class="sideBar">
+			<%= form_tag search_query_path, :class => 'form-horizontal' do %>
+		    	<div class="control-group">
+      		<%= label_tag :search_query, nil, :class => 'control-label' %>
+      				<div class="controls"> 
+        				<%= text_field_tag :search_query, nil %>
+      				</div>
+    			</div>
+    			<div class="form-actions">
+      				<%= submit_tag "Search Keyword", :class => 'btn btn-primary' %>
+      				<div class='clear'></div>
+    			</div>
+    		<% end %>
+		    	
+		    </form>
 			<input class="search" placeholder="Search" />
 			<button class="sort sortByRetweets" data-sort="retweet">Sort by Retweet</button>
 			<button class="sort sortByFollowers" data-sort="followers">Sort by Followers</button>
