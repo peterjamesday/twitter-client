@@ -1,4 +1,3 @@
-
 var TweetsView = Backbone.View.extend({
 
     el: ".list", 
@@ -9,6 +8,7 @@ var TweetsView = Backbone.View.extend({
         // this.render();
         var self = this;
          this.collection.on("reset sync", this.render, this);
+         this.collection.on("reset sync", this.displayTweet, this);
          this.collection.on("sortRetweets", this.renderSortedList, this);
          this.collection.on("sortByFollowers", this.renderSortedList, this);
 
@@ -39,10 +39,9 @@ var TweetsView = Backbone.View.extend({
     },
 
     events: {
-        "mouseover .bubble": "hoverSidebar"
+        // "mouseover .bubble": "hoverSidebar"
     },
 
-  
 
     hoverSidebar: function(event){
         

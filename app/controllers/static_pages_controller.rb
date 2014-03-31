@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
 
   def home
   	@current_user = current_user
-
+    @search_query = session[:search_query]
   	@logged_in = true
 
   	

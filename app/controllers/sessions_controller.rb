@@ -21,8 +21,13 @@ class SessionsController < ApplicationController
     redirect_to '/login', :notice => "Logged out."
   end
 
+  def search_query
+    session[:search_query] = params[:search_query]
+    redirect_to root_url, notice: "Success!"
+  end
+
   def twitter_create
-    
+
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
     redirect_to root_url, notice: "Signed in!"

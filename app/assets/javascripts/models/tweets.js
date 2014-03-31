@@ -26,7 +26,19 @@ var Tweets = Backbone.Collection.extend({
     comparator: function() {
         
     },
+    
+    displayTweet: function(status) {
+        debugger
+    var tweetTxt = status['text'];
+    var twre = /\@([a-z]+)/ig;
+    var twhash = /\#([a-z]+)/ig;
+    var twurl = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    var newTxt = tweetTxt.replace(twurl, '<a href="$1">$1</a>')
+                        .replace(twre, '<a href="http://twitter.com/@$1">@$1</a>')
+                        .replace(twhash, '<a href="http://search.twitter.com/search?q=$1">#$1</a>');
+    status['text'] = newTxt;
 
+    },
 
     sortByRetweets: function(retweetSortedDirection){
         this.comparator = function(tweet){

@@ -16,12 +16,12 @@ before_filter :require_user
   
   
   def retrieveTweets
-    if @current_user.search_query
-      @search_query = @current_user.search_query
+    if session[:search_query]
+      search_query = session[:search_query]
     else
-      @search_query = "cats"
+      search_query = "cats"
     end
-    tweets = twitterAuth.search(@search_query + " -rt", :max_id => params[:max_id]).take(40)
+    tweets = twitterAuth.search(search_query + " -rt", :max_id => params[:max_id]).take(40)
     render :json => tweets, :status => 200
   end
 
