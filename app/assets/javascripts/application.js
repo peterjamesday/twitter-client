@@ -58,7 +58,7 @@ $(document).ready(function () {
     var tweetPostView = new TweetPostView({model: tweetPost});
     var sidebarView = new SidebarView({collection: tweets});
    
-    createList();
+    
     tweetPost.on("invalid", function(model, error){
         debugger
     });
@@ -67,12 +67,14 @@ $(document).ready(function () {
 // Begin list.js integration
 
 var options = {
-    valueNames: ['retweet', 'name', 'text', 'tweetCount', 'followers']
+    valueNames: ['retweet', 'name', 'text', 'followers']
 };
 
 
 function createList () {
-    var tweetList = new List('tweet-list', options);
+
+    window.tweetList = new List('tweet-list', options);
+debugger
     
     //tweetList.items[i]
 }

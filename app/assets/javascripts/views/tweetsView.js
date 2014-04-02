@@ -36,6 +36,8 @@ var TweetsView = Backbone.View.extend({
 
             $('.list').append(tweetView.render().el); 
         }  
+        createList();
+        //work on this further
     },
 
     events: {
